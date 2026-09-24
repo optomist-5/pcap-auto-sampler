@@ -1,0 +1,10 @@
+[
+  {
+    "TimeGenerated": "2026-09-24T02:01:07.119635+00:00",
+    "SourceIp": "192.168.1.157",
+    "DestinationIp": "185.220.101.5",
+    "ThreatCategory": "DNS_C2_Tunneling",
+    "Payload": "v1-exfil-a3f91b82c9e47d10a.malicious-beacon.ru",
+    "Severity": "High"
+  }
+]
