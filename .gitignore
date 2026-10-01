@@ -1,5 +1,9 @@
 venv/
 secops/
+bin/
+lib/
+include/
+pyvenv.cfg
 .env
 *.pat
 *.token
