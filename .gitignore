@@ -1,9 +1,9 @@
-captures/*.pcap
-*.pcap
 venv/
-__pycache__/
-*.pyc
+secops/
+.env
+*.pat
+*.token
+token.json
+*.pcap
+*.pcapng
 .DS_Store
-
-mvt_ios_results/
-.mvt/

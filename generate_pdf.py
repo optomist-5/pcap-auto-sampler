@@ -195,7 +195,7 @@ def build_pdf():
         "&nbsp;&nbsp;• <code>*</code>: Every month<br/>"
         "&nbsp;&nbsp;• <code>0</code>: Sunday<br/>"
         "<b>Command Entry:</b><br/>"
-        "<code>0 2 * * 0 /Users/mq/pcap-auto-sampler/venv/bin/python3 /Users/mq/pcap-auto-sampler/capture.py &gt;&gt; /var/log/pcap_sampler.log 2&gt;&amp;1</code>",
+        "<code>0 2 * * 0 $HOME/pcap-auto-sampler/venv/bin/python3 $HOME/pcap-auto-sampler/capture.py &gt;&gt; /var/log/pcap_sampler.log 2&gt;&amp;1</code>",
         body_style
     ))
 

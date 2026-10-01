@@ -37,7 +37,7 @@ By implementing an automated sampling baseline (capturing 2,500 packets or 300 s
 
 ### B. Linux / macOS Security Boundaries
 - **Challenge:** Network socket sniffing requires administrative (`root`) privileges. Standard user cron jobs fail silently when attempting raw packet capture.
-- **Resolution:** Bound the Python virtual environment executable (`/Users/mq/pcap-auto-sampler/venv/bin/python3`) inside the **root crontab** (`sudo crontab -e`). Recognized that `sudo` requires the local macOS administrator screen-unlock password, distinct from web authentication tokens.
+- **Resolution:** Bound the Python virtual environment executable (`$HOME/pcap-auto-sampler/venv/bin/python3`) inside the **root crontab** (`sudo crontab -e`). Recognized that `sudo` requires the local macOS administrator screen-unlock password, distinct from web authentication tokens.
 
 ### C. Git Version Control & Repository Reconciliation
 - **Challenge:** Pushing code was initially blocked due to two factors: GitHub's deprecation of plain password authentication over HTTPS, and a remote-branch conflict caused by GitHub generating a default `LICENSE` file online.
