@@ -1,60 +1,96 @@
-# Hi, I'm Matt Quijada 👋
-### Threat Detection Analyst | SecOps & KQL | Cloud Security & IAM | Ex-RN Risk Lead
+# Enterprise Multi-Cloud Security Hardening & Workforce Identity Federation
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://linkedin.com/in/matt-quijada)
-[![Location](https://img.shields.io/badge/Location-Seattle%2C%20WA-red?style=flat)](https://maps.google.com/?q=Seattle,WA)
-[![Degree](https://img.shields.io/badge/BS-Cybersecurity%20%26%20Information%20Assurance%20(ABET%2FCAE--CD)-green?style=flat)](https://www.wgu.edu)
+## Executive Summary
+This repository contains automated infrastructure-as-code (IaC) tooling and declarative security policy enforcing multi-cloud baselines across Google Cloud Platform (GCP) and Microsoft Azure.
 
----
-
-## 🩺 The Clinical Advantage: BSN/MSN Telemetry Alarm Fatigue to SOC Alert Fidelity
-I am a **Cybersecurity & Threat Detection Analyst** transitioning from over 6 years of high-stakes clinical leadership, hospital incident command, and clinical risk management. 
-
-- **Solving Alert Fatigue:** In my MSN leadership and clinical research, I designed and scaled evidence-based protocols to eliminate **cardiac telemetry alarm fatigue** across hospital units—preventing clinician burnout and ensuring critical events were never missed.
-- **Direct SOC Application:** In a Security Operations Center (SOC), the crisis is identical. Analysts face thousands of low-fidelity SIEM/EDR alerts daily. I bring an established clinical triage framework to threat detection: tuning baseline noise, prioritizing high-severity anomalies, and conducting rapid Root Cause Analysis (RCA) under pressure.
+The architecture demonstrates zero-trust workforce identity federation using Microsoft Entra ID via OIDC, enforcing defensive Organization Policy guardrails, and verifying negative security boundaries against unauthorized resource provisioning and key issuance.
 
 ---
 
-## 🛠️ Technical & GRC Core Competencies
+## Security Guardrails & Defense-in-Depth Model
 
-| Domain | Technical Capabilities & Frameworks |
-| :--- | :--- |
-| **Security Operations & Hunting** | Azure Sentinel, KQL (Kusto Query Language), Network Packet Analysis (Wireshark/Tshark), Scapy Python Automation, Log Analysis, OS Security (macOS/Linux/Windows), Threat Profiling |
-| **GRC & Compliance** | GRC Platforms (Vanta, Drata), Audit Readiness, User Access Reviews (UAR), RBAC, SOC 2, ISO 27001, HIPAA, GDPR, Incident Response Plans (IRPs) |
-| **ITSM & Service Management** | ITIL v4 Frameworks, Service Desk Ticket Workflow Integration, Ticket & Remediation Tracking |
-| **Incident Command & Leadership** | Facility-wide Crisis Escalation, Root Cause Analysis (RCA), Policy Governance, Cross-Functional Team Leadership, Technical Documentation |
+SecOps hardening is verified across two primary security abstraction layers:
 
----
+### Layer 1: Identity & Access Management (IAM)
+* **Zero Service Account Keys**: Banning user-managed service account keys mitigates credential leakage vectors in developer environments and CI/CD pipelines.
+* **Workforce Pool Mapping**: Granting ephemeral, scope-limited roles (`roles/viewer`, `roles/iam.infrastructureAdmin`) via workforce identity assertions.
 
-## 💼 Professional Security & Leadership Experience
+### Layer 2: Organization Policy Guardrails (Pre-execution Enforcement)
+Even if an identity is granted temporary administrative permissions (e.g., `roles/compute.admin` or `roles/iam.serviceAccountKeyAdmin`), declarative organization policies prevent non-compliant infrastructure provisioning at the control plane level:
 
-- **TryHackMe Apprenticeship** | *Remote (Aug 2025 – Sep 2026)*
-  - Executed hands-on threat hunting, network traffic analysis, SIEM log parsing, and endpoint security assessments across simulated enterprise environments.
-- **Cyber Security Analyst Intern** | *Rhymetec (Sep 2025 – Jan 2026)*
-  - Performed technical/operational risk assessments and delivered prioritized mitigation strategies to senior management.
-  - Managed automated GRC platforms (Vanta, Drata) for User Access Reviews (UAR) and Role-Based Access Control (RBAC).
-  - Authored tailored Incident Response Plans (IRPs) and ensured alignment with SOC 2, ISO 27001, GDPR, and HIPAA.
-- **House Supervisor & Risk Management Coordinator** | *Community Health Systems / Healthcare Operations*
-  - Final escalation point for facility-wide operational and infrastructure emergencies in direct coordination with executive leadership (CNO/CEO).
-  - Executed rapid incident response, root cause analyses (RCA), and legal compliance investigations under high-stress conditions.
-- **Nurse Educator III** | *Sutter Health / Kaiser Permanente*
-  - Designed and delivered compliance-driven education, secure technology rollouts, and hospital-wide competency initiatives.
+* **`constraints/compute.vmExternalIpAccess`**: Enforces `denyAll: true` on VM IPv4 public IP assignment.
+* **`constraints/iam.disableServiceAccountKeyCreation`**: Globally blocks `.json` service account key downloads.
+* **`constraints/iam.automaticIamGrantsForDefaultServiceAccounts`**: Prevents auto-assigning permissive `Editor` roles to default Compute and App Engine service accounts.
 
 ---
 
-## 🔬 Featured Portfolio Labs & Projects
+## Threat Detection & Engineering Insights
 
-- ☁️ [**Cloud Network Forensics & KQL Detection Engineering Lab**](https://github.com/optomist-5/pcap-auto-sampler): Active multi-cloud threat detection laboratory analyzing cloud telemetry and authoring production-grade KQL queries in Azure Sentinel.
-- 📡 [**Automated PCAP Ingestion & AI Threat Analysis Pipeline**](https://github.com/optomist-5/pcap-auto-sampler): Automated Python Scapy network traffic ingestion pipeline with root crontab scheduling, AI-assisted threat analysis, and Tshark log parsing.
-- 🛡️ [**macOS Endpoint Threat Hunt**](https://github.com/optomist-5/pcap-auto-sampler/blob/main/LAB2_ENDPOINT_THREAT_HUNT.md): EDR socket audit, process lineage correlation (`lsof`/`ps`), and OS integrity verification (SIP/Gatekeeper/FileVault).
+### 1. Dual-Layer Policy Evaluation Order
+* **Finding**: IAM authorization is evaluated **before** Organization Policy constraints.
+* **Engineering Insight**: If a federated user lacks the specific IAM permission (`iam.serviceAccountKeys.create`), the request fails at **Layer 1** with `PERMISSION_DENIED`. To validate that Layer 2 guardrails are working, identity permissions must be temporarily elevated to confirm that the platform rejects the request with `FAILED_PRECONDITION` (`constraints/iam.disableServiceAccountKeyCreation`).
+
+### 2. Service Activation & Billing Dependencies
+* **Finding**: Infrastructure APIs like `compute.googleapis.com` cannot be auto-enabled by federated workforce users lacking `serviceusage.services.enable`.
+* **Engineering Insight**: Hardening automation pipelines must decouple project bootstrapping (billing account attachment and API enablement via admin service principals) from daily operational workforce workflows.
+
+### 3. Threat Detection Monitoring Signals
+Security Command Center (SCC) and Cloud Audit Logs should monitor for the following high-fidelity indicators:
+* `google.iam.admin.v1.CreateServiceAccountKey` calls resulting in `FAILED_PRECONDITION`.
+* `v1.compute.instances.insert` calls rejected due to `compute.vmExternalIpAccess` policy violations.
+* Rapid identity context switches between administrative principals and federated workforce subjects.
 
 ---
 
-## 🎓 Education & Certifications
+## Execution Workflow
 
-- **B.S. Cybersecurity and Information Assurance** | Western Governors University *(ABET & NSA CAE-CD Accredited)*
-- **M.S. in Nursing (Education Specialty & Curriculum Design)** | Western Governors University
-- **CompTIA Security+** *(Target: Late 2026)* | **CompTIA A+** | **Google Cybersecurity Specialization**
-- **ITIL Foundation Certificate in IT Service Management** | PeopleCert
-- **Master SOC 2 Implementer** | Scytale
-- **Registered Nurse (RN) License** | Active (State of WA)
+```bash
+# 1. Initialize environment & attach billing
+python setup_lab_environment.py
+
+# 2. Execute master hardening suite
+python lab_master_hardener.py
+
+# 3. Authenticate as federated workforce principal
+gcloud auth login --login-config=login-config.json
+
+# 4. Verify negative policy constraint (Expected: BLOCKED by OrgPolicy)
+gcloud compute instances create public-ip-test-vm \
+  --zone=us-central1-a \
+  --machine-type=e2-micro \
+  --project=basic-decoder-510402-i2
+
+
+---
+
+### Step 2: Create Deployment Script (`deploy_to_github.sh`)
+
+Now create the git automation script:
+
+```bash
+cat << 'EOF' > deploy_to_github.sh
+#!/usr/bin/env zsh
+set -e
+
+echo "📦 Preparing files for Git deployment..."
+
+# 1. Clean up temporary test artifacts
+rm -f test-key.json tmp_policy.yaml
+
+# 2. Add files to staging
+git add README.md setup_lab_environment.py lab_master_hardener.py lab_hardening_audit.json
+
+# 3. Commit with structured engineering summary
+git commit -m "feat(secops): complete multi-cloud zero-trust hardening suite
+
+- Implemented setup_lab_environment.py for dynamic billing link & API activation
+- Executed lab_master_hardener.py across GCP multi-project environment
+- Verified Entra ID OIDC Workforce Identity Federation
+- Validated negative policy constraints for compute.vmExternalIpAccess & iam.disableServiceAccountKeyCreation
+- Documented threat detection signals and dual-layer policy enforcement post-mortem"
+
+# 4. Push to remote main branch
+echo "🚀 Pushing changes to GitHub..."
+git push origin main || git push origin HEAD
+
+echo "✅ Repository updated and published successfully!"
