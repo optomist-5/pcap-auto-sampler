@@ -1,13 +1,37 @@
+# Python & Virtual Environments
 venv/
-secops/
-bin/
-lib/
-include/
-pyvenv.cfg
-.env
-*.pat
-*.token
-token.json
-*.pcap
-*.pcapng
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+# Security Credentials & Identity Configurations
+*.json
+!login-config.json.example
+*.pem
+*.key
+*.pfx
+
+# Temporary Lab & Policy Test Artifacts
+tmp_policy.yaml
+/tmp/
+*.log
+
+# OS & Environment Files
 .DS_Store
+.env
+.vscode/
+.idea/
+
+# Telemetry & captures
+*.pcap
+captures/
+telemetry/*.pcap
+
+# Local configs & environments
+rig_config.env
+.venv/
+venv/
+lib/
+bin/
