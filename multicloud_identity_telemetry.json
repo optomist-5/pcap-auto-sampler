@@ -1,8 +1,0 @@
-[
-  {
-    "TimeGenerated": "2026-09-24T02:03:33.338184+00:00",
-    "SecurityControl": "BreakGlass_Account_Monitor",
-    "Status": "STANDBY",
-    "PolicyDetail": "Monitoring breakglass-admin@domain for unauthorized logins"
-  }
-]
