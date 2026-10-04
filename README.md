@@ -4,7 +4,7 @@ Operator: mq (optomist-5)
 Environment: macOS Darwin (Zsh)
 Repository: secops-sentinel-platform
 Security Baseline: Zero-Trust Verified | $0.00 Cloud Cost Ceilings | Gitleaks Clean
-Last Build: 2026-10-03 20:08:41
+Last Build: 2026-10-03 20:09:45
 
 ---
 
@@ -28,6 +28,7 @@ SecOps Sentinel Platform is an interactive CLI suite built for high-visibility e
 
 ## Audit Trail & Verified Git Commits
 
+57769eb feat(lab): add new SecOps lab module
 efa97ba docs: rebrand platform landing page to secops-sentinel-platform
 d2949ba refactor(sentinel): update vault sanitizer with robust directory cleanup
 b5dfb91 feat(sentinel): add functional network and system triage CLI tool
@@ -35,7 +36,6 @@ b5dfb91 feat(sentinel): add functional network and system triage CLI tool
 115571a feat(secops): complete multi-cloud zero-trust hardening suite
 ac0b0ac feat(pipeline): sync workspace state [2026-10-01 15:23:13]
 289a7fb feat(pipeline): sync workspace state [2026-10-01 15:20:35]
-3e0fcdd feat(telemetry): sync multi-cloud security masterpiece & audit modules [2026-10-01 14:57:31]
 
 ---
 Auto-generated via python3 sentinel_docgen.py
