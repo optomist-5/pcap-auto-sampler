@@ -1,37 +1,41 @@
-# Python & Virtual Environments
-venv/
-.venv/
-env/
-__pycache__/
-*.pyc
-*.pyo
+# ==============================================================================
+# SECOPS SENTINEL PLATFORM - STRICT SECURITY & WORKSPACE GITIGNORE
+# ==============================================================================
 
-# Security Credentials & Identity Configurations
-*.json
-!login-config.json.example
-*.pem
-*.key
-*.pfx
-
-# Temporary Lab & Policy Test Artifacts
-tmp_policy.yaml
-/tmp/
-*.log
-
-# OS & Environment Files
-.DS_Store
+# 1. Credentials, API Keys, & Secrets (STRICT LEAK SHIELD)
 .env
+*.env
+*.key
+*.pem
+*.pfx
+*.p12
+*.crt
+*credentials*
+*secret*
+*test-key*
+tmp_policy.yaml
+
+# 2. Virtual Environments & Runtimes
+.venv/
+venv/
+ENV/
+env/
+
+# 3. Python Cache & Compiled Files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 4. macOS System Files & IDE Artifacts
+.DS_Store
+.AppleDouble
+.LSOverride
 .vscode/
 .idea/
 
-# Telemetry & captures
-*.pcap
-captures/
-telemetry/*.pcap
-
-# Local configs & environments
-rig_config.env
-.venv/
-venv/
-lib/
-bin/
+# 5. Local Telemetry Reports & Temporary Dumps
+*.log
+telemetry/perimeter_report.log
+tmp/
+temp/

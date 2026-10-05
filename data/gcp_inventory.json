@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-10-03T22:00:00Z",
+  "project_id": "secops-lab-001",
+  "finops_metrics": {
+    "current_billing_cycle_usd": 4.50,
+    "budget_limit_usd": 10.00,
+    "projected_spend_usd": 8.75
+  },
+  "resources": [
+    {
+      "type": "compute_instance",
+      "name": "bastion-host-1",
+      "status": "RUNNING",
+      "daily_cost": 0.45,
+      "tags": ["env:dev", "sec:critical"]
+    }
+  ],
+  "security_alerts": [
+    {
+      "severity": "LOW",
+      "finding": "Unused IAM role assigned",
+      "remediation": "Remove role bindings"
+    }
+  ]
+}
