@@ -5,9 +5,15 @@ Enforces 4-Tier Triage & Native iMessage Alerts
 """
 
 import os, sys, subprocess, signal
+
+# Add module directory to Python path for seamless imports
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from siem_engine import log_event
 
-APPROVED_PORTS = {22, 80, 443}
+# Approved systemic listening ports baseline
+APPROVED_PORTS = {22, 80, 443, 53, 5353, 631}
+# Standard benign macOS system processes
+APPROVED_PROCESSES = {"rapportd", "mDNSResponder", "cupsd"}
 
 def dispatch_imessage(tier, msg):
     """Sends native AppleScript iMessage alert to primary Apple ID."""
@@ -32,7 +38,7 @@ def audit_sockets_and_ips(auto_contain=False):
                     port_str = addr.split(":")[-1].split("->")[0]
                     if port_str.isdigit():
                         port = int(port_str)
-                        if port not in APPROVED_PORTS:
+                        if port not in APPROVED_PORTS and proc not in APPROVED_PROCESSES:
                             anomalies.append({'proc': proc, 'pid': int(pid), 'port': port, 'raw': line})
 
     if anomalies:
