@@ -16,30 +16,37 @@ def main_menu():
     clear()
     header()
     print(" [ ENTERPRISE XDR / IDS / IPS / SIEM ENGINE ]")
-    print("  [1]  xdr-ids-scan        : Run IDS Perimeter Socket & Persistence Scan")
-    print("  [2]  xdr-ips-contain     : Run Active IPS Engine (Auto-Terminate Threats)")
-    print("  [3]  siem-dashboard      : Display Central SIEM Event Telemetry Log")
-    print("  [4]  threat-hunter       : PCAP Packet Parser & Anomaly Detection")
-    print("  [5]  cloud-hardener      : GCP & Azure Subscription Zero-Trust Hardening")
+    print("  [1]  audit-perimeter     : macOS Native Firewall & Telemetry Audit")
+    print("  [2]  xdr-ids-scan        : Run IDS Perimeter Socket & Persistence Scan")
+    print("  [3]  xdr-ips-contain     : Run Active IPS Engine (Auto-Terminate Threats)")
+    print("  [4]  siem-dashboard      : Display Central SIEM Event Telemetry Log")
+    print("  [5]  threat-hunter       : PCAP Packet Parser & Anomaly Detection")
+    print("  [6]  cloud-hardener      : GCP & Azure Subscription Zero-Trust Hardening")
+    print("  [7]  dlp-scrubber        : PII & Credential Scanner")
     print("")
     print(" [ SYSADMIN & OS OPERATIONS ]")
-    print("  [6]  sysadmin-vitals     : Workstation Hardware, Storage & Alias Audit")
-    print("  [7]  tailscale-status    : Inspect Private Mesh Network Peering")
+    print("  [8]  sysadmin-vitals     : Workstation Hardware, Storage & Alias Audit")
+    print("  [9]  tailscale-status    : Inspect Private Mesh Network Peering")
+    print("  [10] ops-system-purge    : Deep-Clean Temp Caches & Build Files")
     print("")
     print(" [ COMMUNICATIONS & RADIO DISPATCH ]")
-    print("  [8]  radio-dispatch      : Transmit iMessage/Radio Signal to Recipient")
+    print("  [11] radio-dispatch      : Transmit iMessage/Radio Signal (MQ, Mau, Custom)")
     print("")
     print(" [ MULTI-CLOUD & IAM AUTOMATION ]")
-    print("  [9]  iam-audit-engine    : Entra ID, GCP & Workspace Directory Audit")
-    print("  [10] gcloud-context      : Verify Active GCP Project & ADC Tokens")
+    print("  [12] iam-audit-engine    : Entra ID, GCP & Workspace Directory Audit")
+    print("  [13] gcloud-context      : Verify Active GCP Project & ADC Tokens")
+    print("")
+    print(" [ ADVANCED SOC & DFIR DIAGNOSTICS ]")
+    print("  [14] dfir-artifacts     : Collect macOS Persistence & Log Artifacts")
+    print("  [15] soc-net-capture    : Inspect Active Network Connections & Sockets")
     print("")
     print(" [ STUDENT LABS & DOCUMENTATION ]")
-    print("  [11] classify-labs       : Sort WGU Coursework & Cert Labs")
-    print("  [12] view-readme         : Display Master Documentation Index")
+    print("  [16] classify-labs       : Sort WGU Coursework & Cert Labs")
+    print("  [17] view-readme         : Display Master Documentation Index")
     print("")
     print(" [ SYSTEM CONTROL & SYNC ]")
-    print("  [13] verify-all          : Run Zero-Trust 15-Point System Audit")
-    print("  [14] sync-github         : Push Code to GitHub & Sync Workspace Backup")
+    print("  [18] verify-all          : Run Zero-Trust 15-Point System Audit")
+    print("  [19] sync-github         : Push Code to GitHub & Sync Workspace Backup")
     print("  [0]  exit                : Exit Control Plane")
     print("======================================================================")
 
@@ -85,32 +92,42 @@ while True:
     main_menu()
     choice = input("SEC-OPS 🧠 ❯ ").strip()
     if choice == '1':
-        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/soc_defense/xdr_agent.py')}")
+        run_cmd(f"{os.path.expanduser('~/secops/scripts/test_all_tools.sh')}")
     elif choice == '2':
-        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/soc_defense/xdr_agent.py')} --contain")
+        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/soc_defense/xdr_agent.py')}")
     elif choice == '3':
-        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/soc_defense/siem_engine.py')} --show")
+        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/soc_defense/xdr_agent.py')} --contain")
     elif choice == '4':
-        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/soc_defense/threat_hunter.py')} --help")
+        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/soc_defense/siem_engine.py')} --show")
     elif choice == '5':
-        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/soc_defense/cloud_hardener.py')} --help")
+        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/soc_defense/threat_hunter.py')} --help")
     elif choice == '6':
-        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/sysadmin/sysadmin_engine.py')}")
+        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/soc_defense/cloud_hardener.py')} --help")
     elif choice == '7':
-        run_cmd("tailscale status 2>/dev/null || echo 'Tailscale CLI not active.'")
+        run_cmd(f"python3 {os.path.expanduser('~/secops/secops_sentinel.py')}")
     elif choice == '8':
-        interactive_radio()
+        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/sysadmin/sysadmin_engine.py')}")
     elif choice == '9':
-        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/iam_directory/iam_audit_engine.py')}")
+        run_cmd("tailscale status 2>/dev/null || echo 'Tailscale CLI not active.'")
     elif choice == '10':
-        run_cmd("gcloud config get-value project && gcloud auth list")
+        run_cmd("rm -rf $HOME/Library/Caches/tmp_secops_* 2>/dev/null && echo '✅ Cache purged.'")
     elif choice == '11':
-        run_cmd(f"{os.path.expanduser('~/secops/scripts/classify_labs.sh')}")
+        interactive_radio()
     elif choice == '12':
-        run_cmd(f"cat {os.path.expanduser('~/secops/docs/README.md')}")
+        run_cmd(f"python3 {os.path.expanduser('~/secops/modules/iam_directory/iam_audit_engine.py')}")
     elif choice == '13':
-        run_cmd(f"{os.path.expanduser('~/secops/scripts/verify_audit_state.sh')}")
+        run_cmd("gcloud config get-value project && gcloud auth list")
     elif choice == '14':
+        run_cmd("ls -la $HOME/Library/LaunchAgents")
+    elif choice == '15':
+        run_cmd("lsof -i -P -n | grep LISTEN")
+    elif choice == '16':
+        run_cmd(f"{os.path.expanduser('~/secops/scripts/classify_labs.sh')}")
+    elif choice == '17':
+        run_cmd(f"cat {os.path.expanduser('~/secops/docs/README.md')}")
+    elif choice == '18':
+        run_cmd(f"{os.path.expanduser('~/secops/scripts/verify_audit_state.sh')}")
+    elif choice == '19':
         run_cmd(f"{os.path.expanduser('~/secops/scripts/sync_github.sh')}")
     elif choice in ['0', 'exit', 'q']:
         print("\n[*] Exiting Control Plane. Stay secure.")
