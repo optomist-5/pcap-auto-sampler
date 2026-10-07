@@ -1,0 +1,49 @@
+======================================================================
+                SECOPS WORKSPACE & GITHUB AUDIT REPORT               
+                Generated: Wed Oct  7 11:27:42 PDT 2026                                   
+======================================================================
+
+[1/4] Checking GitHub CLI (gh) Status...
+• GitHub CLI installed.
+• GitHub CLI authenticated.
+
+--- Remote Repositories on GitHub Account ---
+robotics-embedded-labs | PUBLIC | Updated: 2026-10-06T08:34:41Z | https://github.com/optomist-5/robotics-embedded-labs
+swe-llm-portfolio | PUBLIC | Updated: 2026-10-06T08:34:35Z | https://github.com/optomist-5/swe-llm-portfolio
+secops-sentinel-platform | PUBLIC | Updated: 2026-10-06T08:12:22Z | https://github.com/optomist-5/secops-sentinel-platform
+105-turn_back_time | PRIVATE | Updated: 2026-10-06T08:35:49Z | https://github.com/optomist-5/105-turn_back_time
+secops-portfolio-private | PRIVATE | Updated: 2026-09-24T02:01:33Z | https://github.com/optomist-5/secops-portfolio-private
+awesome-go | PUBLIC | Updated: 2026-09-23T07:41:10Z | https://github.com/optomist-5/awesome-go
+RuView | PUBLIC | Updated: 2026-09-23T07:45:34Z | https://github.com/optomist-5/RuView
+awesome-python | PUBLIC | Updated: 2026-09-23T07:27:52Z | https://github.com/optomist-5/awesome-python
+awesome-compose | PUBLIC | Updated: 2026-09-23T07:50:45Z | https://github.com/optomist-5/awesome-compose
+awesome-mac | PUBLIC | Updated: 2026-09-23T07:41:55Z | https://github.com/optomist-5/awesome-mac
+optomist-5 | PUBLIC | Updated: 2026-09-23T01:35:09Z | https://github.com/optomist-5/optomist-5
+awesome-remote-job | PUBLIC | Updated: 2026-09-23T07:50:17Z | https://github.com/optomist-5/awesome-remote-job
+awesome-selfhosted | PUBLIC | Updated: 2026-09-23T07:35:30Z | https://github.com/optomist-5/awesome-selfhosted
+papers-we-love | PUBLIC | Updated: 2026-09-23T07:42:20Z | https://github.com/optomist-5/papers-we-love
+awesome-react | PUBLIC | Updated: 2026-09-23T07:46:19Z | https://github.com/optomist-5/awesome-react
+data-engineer-handbook | PUBLIC | Updated: 2026-09-23T07:50:59Z | https://github.com/optomist-5/data-engineer-handbook
+awesome-hacking | PUBLIC | Updated: 2026-09-23T07:41:34Z | https://github.com/optomist-5/awesome-hacking
+awesome-react-components | PUBLIC | Updated: 2026-09-23T07:49:36Z | https://github.com/optomist-5/awesome-react-components
+awesome-scalability | PUBLIC | Updated: 2026-09-23T07:46:47Z | https://github.com/optomist-5/awesome-scalability
+volatility | PUBLIC | Updated: 2025-09-02T04:58:33Z | https://github.com/optomist-5/volatility
+cv-Project | PRIVATE | Updated: 2026-10-06T08:36:09Z | https://github.com/optomist-5/cv-Project
+suricata | PUBLIC | Updated: 2025-01-11T18:49:09Z | https://github.com/optomist-5/suricata
+the-book-of-secret-knowledge | PUBLIC | Updated: 2026-09-23T07:40:16Z | https://github.com/optomist-5/the-book-of-secret-knowledge
+git-practice-v2 | PRIVATE | Updated: 2026-10-06T08:35:13Z | https://github.com/optomist-5/git-practice-v2
+105-project | PRIVATE | Updated: 2026-10-06T08:35:18Z | https://github.com/optomist-5/105-project
+105-coding_resources | PRIVATE | Updated: 2026-10-06T08:39:38Z | https://github.com/optomist-5/105-coding_resources
+file_Converter | PUBLIC | Updated: 2024-12-14T10:39:31Z | https://github.com/optomist-5/file_Converter
+template-starter-kit | PRIVATE | Updated: 2026-10-06T08:39:24Z | https://github.com/optomist-5/template-starter-kit
+
+======================================================================
+[2/4] Auditing Local Directories in /Users/mq/CodeProjects...
+
+----------------------------------------------------------------------
+Directory: ColdStorage_Vault (/Users/mq/CodeProjects/ColdStorage_Vault)
+  • Git Repo Status : NOT A GIT REPOSITORY
+  • File Count      :       15 items/subfolders
+
+----------------------------------------------------------------------
+Directory: robotics (/Users/mq/CodeProjects/robotics)
