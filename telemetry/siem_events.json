@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-10-07T21:08:25Z",
+  "event_type": "PFCTL_HARDENING_STATE",
+  "severity": "P4",
+  "mitre_technique": "T1562.001",
+  "host": "SecOpsLT.local",
+  "packet_filter_status": "ENABLED",
+  "details": "macOS Packet Filter active and enforcing stateful anchor rules."
+}

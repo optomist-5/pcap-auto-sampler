@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-10-07T20:59:14Z",
+  "host": "SecOpsLT.local",
+  "audit_type": "HARDENING_STEP_1_BASELINE",
+  "socket_audit": {
+    "status": "ACTIVE_LISTENERS",
+    "details": "rapportd   7190   mq   11u  IPv4 0x2988c41026779a60      0t0  TCP *:50798 (LISTEN) rapportd   7190   mq   12u  IPv6 0xc2d526d73a09e64c      0t0  TCP *:50798 (LISTEN) Google    17587   mq   30u  IPv6 0x8e0720c615d0ee89      0t0  TCP [::1]:7679 (LISTEN) app_inkwe 17767   mq   16u  IPv4 0xce30c3f17280a811      0t0  TCP 127.0.0.1:60646 (LISTEN) "
+  },
+  "packet_filter_status": "DISABLED",
+  "immutability_status": {
+    "status": "LOCKED",
+    "details": "All shell scripts strictly locked to read-only (chmod 555)."
+  }
+}

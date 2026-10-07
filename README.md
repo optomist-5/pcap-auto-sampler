@@ -1,41 +1,59 @@
-# SecOps Sentinel Platform
-
-Operator: mq (optomist-5)
-Environment: macOS Darwin (Zsh)
-Repository: secops-sentinel-platform
-Security Baseline: Zero-Trust Verified | $0.00 Cloud Cost Ceilings | Gitleaks Clean
-Last Build: 2026-10-03 20:11:30
+# Native macOS Living-off-the-Land (LotL) & Zero-Trust SecOps Platform
+### Production Endpoint Containment, Privilege Isolation & Operational Reliability
+[Architecture Documentation](./docs/) | [Incident Post-Mortems](./docs/cert_labs/) | [License: MIT](./LICENSE)
 
 ---
 
-## CLI Multi-Tool Capabilities (secops_sentinel.py)
+## 🛡️ Executive Summary
+This repository contains a hardened, zero-trust host security platform engineered natively on macOS Apple Silicon. It operates entirely using native UNIX and macOS subsystems ("Living off the Land") without relying on third-party commercial endpoint agents.
 
-SecOps Sentinel Platform is an interactive CLI suite built for high-visibility endpoint auditing and workspace hygiene.
-
-- System Metrics Baseline: Real-time uptime, load averages, and root filesystem allocation (`python3 secops_sentinel.py sys`).
-- Socket Inspection: Active TCP socket binding and foreign connection monitoring (`python3 secops_sentinel.py net`).
-- Vault Scrubbing Engine: Automated pattern-based purging of Citrix session tokens, temporary caches, and system logs (`python3 secops_sentinel.py scrub`).
-
----
-
-## Completed Lab Modules
-
-- [Lab 1: Multi-Cloud Zero-Trust & Billing Boundary Hardening](labs/LAB1_ZERO_TRUST.md)
-- [Lab 2: Endpoint Threat Hunting & Host Baseline Audit](labs/LAB2_THREAT_HUNT.md)
-- [Lab 3: Vault Sanitization & Forensics Engine](labs/LAB3_FORENSIC_TRIAGE.md)
+Key capabilities include:
+1. **Host-Level Intrusion Prevention (IPS):** Real-time socket monitoring (`lsof`), automated rogue process termination (`SIGKILL`), and dynamic `pfctl` packet-filtering network isolation.
+2. **Multi-Tier Surveillance & Alert Fatigue Mitigation:** Decoupled silent background watchdogs (`launchd`) running hourly scans from a centralized **09:00 AM Warden executive briefing** (`warden.sh`).
+3. **Multi-Cloud Zero-Trust IAM Architecture:** Air-gapped **3-Account Privilege Isolation Matrix** governing administrative boundaries across Entra ID, Azure, GCP, and Google Workspace.
+4. **Resilience Engineering:** Automated SMS notification throttles via lockfile mechanics (`/tmp/secops_sms_throttle.lock`) to prevent notification storms.
 
 ---
 
-## Audit Trail & Verified Git Commits
+## 📐 Architecture & Subsystems
 
-12cbada refactor(repo): relocate storage_census.sh to scripts directory
-57769eb feat(lab): add new SecOps lab module
-efa97ba docs: rebrand platform landing page to secops-sentinel-platform
-d2949ba refactor(sentinel): update vault sanitizer with robust directory cleanup
-b5dfb91 feat(sentinel): add functional network and system triage CLI tool
-84b2cfa feat(secops): organize workspace into school, labs, and telemetry partitions
-115571a feat(secops): complete multi-cloud zero-trust hardening suite
-ac0b0ac feat(pipeline): sync workspace state [2026-10-01 15:23:13]
+
+
+┌────────────────────────────────────────────────────────────────────────┐
+│                   MACOS ENDPOINT SECURITY CONTROLS                     │
+└────────────────────────────────────────────────────────────────────────┘
+│
+┌────────────────────────────┼────────────────────────────┐
+▼                            ▼                            ▼
+[Hourly Silent Watchdog]   [Warden 09:00 Digest]       [Active IPS Engine]
+com.secops.perimeter.audit com.secops.warden.plist secops_sentinel.py
+
+⚬ Runs audit_perimeter.sh   - Runs warden.sh           - Inspects TCP/UDP
+
+⚬ Silent log heartbeats     - 15/15 control check      - Socket allowlisting
+
+⚬ 0 noise on clean state    - Dispatches morning SMS   - Instant SIGKILL
+
 
 ---
-Auto-generated via python3 sentinel_docgen.py
+
+## 📂 Repository Layout & Verified Modules
+
+```text
+├── bin/
+│   └── warden.sh                  # 09:00 AM Daily Briefing & Health Verifier
+├── scripts/
+│   ├── secops_sentinel.py         # Autonomous socket inspection & containment engine
+│   ├── verify_audit_state.sh      # 15/15 Zero-Trust verification test suite
+│   ├── audit_perimeter.sh         # Silent hourly watchdog executor
+│   ├── send_sms_alert.sh          # Alert delivery with 15-minute lockfile throttle
+│   └── sync_github.sh             # Cloud archive and Git sync pipeline
+├── docs/
+│   └── cert_labs/
+│       ├── LAB_ALERT_STORM_TRIAGE.md        # Triage post-mortem: IPS auto-restart loops
+│       └── LAB2_ENDPOINT_THREAT_HUNT.md     # EDR socket audit & process lineage
+
+
+🔬 Featured Production Retrospective
+
+⚬ Incident Post-Mortem: IPS Alert Storm & Allowlist Tuning: Detailed technical post-mortem analyzing an automated kill-and-respawn cascade caused by launchd supervision, and the engineering of process allowlists and cooldown lockfiles to eliminate alert fatigue.
